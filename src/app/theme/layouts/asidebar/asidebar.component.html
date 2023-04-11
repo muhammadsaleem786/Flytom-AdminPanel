@@ -1,0 +1,58 @@
+
+<!-- <div class="dropdown dropright TopUserMenu">
+
+    <span class="dropdown-toggle" data-toggle="dropdown" *ngIf="Usermodel.UserImage =='' || Usermodel.UserImage ==null">
+        <img src="../../../../../assets/app/media/img/icons/person-male.png" />
+    </span>
+    <span class="dropdown-toggle" data-toggle="dropdown" *ngIf="Usermodel.UserImage !='' && Usermodel.UserImage != null">
+        <img [src]="Usermodel.UserImage">
+    </span>
+   
+</div> -->
+
+<ul class="MenuBar" [style.display]="_AsidebarService.MenuId()==1">
+
+    <li routerLinkActive="active" [hidden]="!DashboardMenu.IsShowMenus()" class="skyblueActive">
+        <a routerLink="dashboard">
+            <span><i class="icon-pie-chart iconImage"></i></span>
+            <span class="title">Dashboard</span>
+        </a>
+    </li>
+    <li routerLinkActive="active" [hidden]="!DashboardMenu.IsShowMenus()" class="skyblueActive">
+        <a routerLink="Make">
+            <span><i class="icon-home iconImage"></i></span>
+            <span class="title">Make</span>
+        </a>
+    </li>
+    <li routerLinkActive="active" [hidden]="!DashboardMenu.IsShowMenus()" class="skyblueActive">
+        <a routerLink="VehicleModel">
+            <span><i class="icon-train iconImage"></i></span>
+            <span class="title">Model</span>
+        </a>
+    </li>
+    <li routerLinkActive="active" [hidden]="!DashboardMenu.IsShowMenus()" class="skyblueActive">
+        <a routerLink="Category">
+            <span><i class="icon-layers iconImage"></i></span>
+            <span class="title">Category</span>
+        </a>
+    </li>
+    
+    <li routerLinkActive="active" [hidden]="!DashboardMenu.IsShowMenus()" class="skyblueActive">
+        <a routerLink="Vehicle">
+            <span><i class="icon-car iconImage"></i></span>
+            <span class="title">Vehicle</span>
+        </a>
+    </li>
+
+
+
+    <li routerLinkActive="active" [hidden]="!DashboardMenu.IsShowMenus()" class="skyblueActive">
+        <a (click)="Logout()" id="LogOut" style="color: #fff;">
+
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" style="font-size:24px;" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M5 11h8v2H5v3l-5-4l5-4v3zm-1 7h2.708a8 8 0 1 0 0-12H4a9.985 9.985 0 0 1 8-4c5.523 0 10 4.477 10 10s-4.477 10-10 10a9.985 9.985 0 0 1-8-4z" fill="currentColor" /></svg>
+        </a>
+    </li>
+</ul>
+
+
+<div class="clearfix"></div>

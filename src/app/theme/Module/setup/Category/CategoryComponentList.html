@@ -1,0 +1,98 @@
+﻿
+
+
+<div class="margin-t-68 removeAction">
+    <div class="row headSection paginationHead">
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col max-content">
+                    <h3 class="page-heading mt-d-inline-block">
+                        Category
+                    </h3>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-sm-4 text-right flex-row flex-end">
+
+
+            <a class="btn btn-danger" (click)="AddRecord('0')">New Category</a>
+        </div>
+    </div>
+
+
+    <div>
+        <div class="Cardview search_onTop px-2">
+            <app-pagination [PModel]="PModel" [PConfig]="PConfig" [PData]="ComplaintList" (pageChange)="GetList()" (AddOrEditEvent)="AddRecord($event)" (ViewEvent)="View($event)" (GoBackEvent)="GoBack($event)" (DeleteEvent)="Delete($event)" (ExportEvent)="ExportData($event)"></app-pagination>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #CategoryModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title"*ngIf="IsEdit">Update Category</h4>
+        <h4 class="modal-title" *ngIf="IsEdit==false">Add Category</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="Form1" novalidate (ngSubmit)="SaveOrUpdate(Form1.valid)">
+        <div class="modal-body bg-secondary">
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <div class="row">
+                        <div class="col-4 text-right">
+                            <label> Car Type</label>
+                        </div> 
+                        <div class="col-8">
+                           <div class="d-flex">
+                            <div class="custom-control custom-radio mr-5">
+                                <input type="radio" class="custom-control-input" name="CarType" id="Car-Type" value="P" formControlName="CarType" [(ngModel)]="model.CarType">
+                                <label class="custom-control-label" for="Car-Type">Personal Car</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="CarType" id="Car-Type1" value="V" formControlName="CarType" [(ngModel)]="model.CarType">
+                                <label class="custom-control-label" for="Car-Type1">Vain</label>
+                            </div>
+                           </div>
+                            <small class="text-danger" *ngIf="Form1.controls.CarType.hasError('required') && submitted">
+                                This value is required.
+                            </small>  
+                            </div>
+                            
+                    </div>
+                    <div class="row form-group mt-3">
+                        <div class="col-4 text-right">
+                            <label class="form-control-label mt-2" for="input-username">Name </label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" id="" formControlName="Name" [(ngModel)]="model.Name" class="form-control form-control-sm form-control-alternative" placeholder="Name">
+                            <small class="text-danger" *ngIf="Form1.controls.Name.hasError('required') && submitted">
+                                This value is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          
+            <button type="button" class="btn btn-red btnDel pull-left" *ngIf="IsEdit" (click)="Delete()">Delete</button>
+            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+            <button type="submit" class="btn btn-danger" *ngIf="!IsEdit">Save</button>
+            <button type="submit" class="btn btn-danger" *ngIf="IsEdit">Update</button>
+        </div>
+    </form>
+</ng-template>
+
+
+
+
+
+
+
+
+

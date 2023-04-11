@@ -1,0 +1,466 @@
+﻿<div class="col-sm-12 AddRoleWraper">
+    <div class="row headSection paginationHead">
+        <div class="col-sm-8 no-padding">
+            <h3 class="page-heading mt-d-inline-block"*ngIf="IsEdit">
+               Update Vehicle
+            </h3>
+            <h3 class="page-heading mt-d-inline-block" *ngIf="IsEdit==false">
+                Add New Vehicle
+            </h3>
+        </div>
+        <div class="col-sm-4 text-right flex-row flex-end">
+            <span class="closeICon" routerLink="/home/Vehicle/">
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 512 512" xml:space="preserve" class="icon icon-sm"><path d="M455.2 9.2L256 208.4 56.8 9.2C44.5-3.1 24.6-3.1 12.2 9.2l-2.9 2.9C-3 24.4-3 44.4 9.3 56.7L208.4 256 9.2 455.2c-12.3 12.3-12.3 32.3 0 44.6l2.9 2.9c12.3 12.3 32.3 12.3 44.6 0L256 303.6l199.2 199.2c12.3 12.3 32.3 12.3 44.6 0l2.9-2.9c12.3-12.3 12.3-32.3 0-44.6L303.6 256 502.8 56.8c12.3-12.3 12.3-32.3 0-44.6l-2.9-2.9c-12.5-12.4-32.4-12.4-44.7-.1z"></path></svg>
+            </span>
+        </div>
+    </div>
+    <div class="row Cardview padding-20 m-0">
+       
+
+      <div class="col-sm-12">
+        <form [formGroup]="Form1" novalidate (ngSubmit)="SaveOrUpdate(Form1.valid)">
+            <div class="row">
+                <div class="col-sm-4 col-md-3">
+                    <label> Car Type</label>
+                   <div class="d-flex input-border">
+                    <div class="custom-control custom-radio mr-3">
+                        <input type="radio" class="custom-control-input" id="Car-Type" value="P" formControlName="CarType" [(ngModel)]="model.CarType">
+                        <label class="custom-control-label ml-1" for="Car-Type">Personal Car</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input"id="Car-Type1" value="V" formControlName="CarType" [(ngModel)]="model.CarType">
+                        <label class="custom-control-label ml-1" for="Car-Type1">Vain</label>
+                    </div>
+                   </div>
+                    <small class="text-danger" *ngIf="Form1.controls.CarType.hasError('required') && submitted">
+                        This value is required.
+                    </small> 
+                </div>
+                <!-- -end of col -->
+
+                <div class="col-sm-4 col-md-3" *ngIf="model.CarType=='V'">
+                    <label> Lift</label>
+                    <div class="d-flex input-border">
+                        <div class="custom-control custom-radio mr-5">
+                            <input type="radio" class="custom-control-input" id="Lift-Type" value="Y" formControlName="Lift" [(ngModel)]="model.Lift">
+                            <label class="custom-control-label" for="Lift-Type">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio mr-5">
+                            <input type="radio" class="custom-control-input" id="Lift-Type1" value="N" formControlName="Lift" [(ngModel)]="model.Lift">
+                            <label class="custom-control-label" for="Lift-Type1">No</label>
+                        </div>
+                    </div>
+                    <small class="text-danger" *ngIf="Form1.controls.Lift.hasError('required') && submitted">
+                        This value is required.
+                    </small> 
+                </div>
+
+                
+                <!-- -end of col -->
+
+                <div class="col-sm-4 col-md-3">
+
+                    <label>
+                        Make
+                    </label>
+                    <div class="input-group mb-3">
+                        <select class="form-control form-control-sm form-control-alternative" formControlName="MakesId" [(ngModel)]="model.MakesId" (change)="LoadModelByMakeId(model.MakesId)">
+                            <option *ngFor="let item of MakeList" [value]="item.ID">
+                                {{item.Name}}
+                            </option>
+                        </select>
+                        <small class="text-danger" *ngIf="Form1.controls.MakesId.hasError('required') && submitted">
+                            This value is required.
+                        </small>
+                    </div>
+                </div>
+
+
+                <!-- -end of col -->
+
+                <div class="col-sm-4 col-md-3">
+                    <label>
+                        Model
+                    </label>
+                    <div class="input-group mb-3">
+                        <select class="form-control form-control-sm form-control-alternative" formControlName="VehicleModelsId" [(ngModel)]="model.VehicleModelsId">
+                            <option *ngFor="let item of ModelList" [value]="item.ID">
+                                {{item.Name}}
+                            </option>
+                        </select>
+                        <!-- <div class="input-group-prepend btn btn-light" style="width:50px;" (click)="openNewVehicleModal(VehicleModal)">
+                            <span class="svgIcon">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg);-webkit-transform: rotate(360deg);transform: rotate(360deg);width: 22px;margin-right: 13px;height: 22px;" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="#626262" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: #5e72e4;"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><path d="M20 8v6"></path><path d="M23 11h-6"></path></g></svg>
+                            </span>
+                        </div> -->
+                        <small class="text-danger" *ngIf="Form1.controls.VehicleModelsId.hasError('required') && submitted">
+                            This value is required.
+                        </small>
+                    </div>
+                </div>
+
+
+                
+                <!-- -end of col -->
+
+                <div class="col-sm-4 col-md-3 col-lg-2" *ngIf="model.CarType=='P'">
+                    <label> Category Type</label>
+                    <div class="form-group">
+                        <select class="form-control form-control-sm form-control-alternative" formControlName="CategoryId" [(ngModel)]="model.CategoryId">
+        <option *ngFor="let item of PCategoryList" [value]="item.ID">
+                                {{item.Name}}
+                            </option>
+                        </select>
+                         <small class="text-danger" *ngIf="Form1.controls.CategoryId.hasError('required') && submitted">
+                    This value is required.
+                </small>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-md-3 col-lg-2" *ngIf="model.CarType=='V'">
+                    <label> Category Type</label>
+                    <div class="form-group">
+                        <select class="form-control form-control-sm form-control-alternative" formControlName="CategoryId" [(ngModel)]="model.CategoryId">
+        <option *ngFor="let item of VCategoryList" [value]="item.ID">
+                                {{item.Name}}
+                            </option>
+                        </select>
+                         <small class="text-danger" *ngIf="Form1.controls.CategoryId.hasError('required') && submitted">
+                    This value is required.
+                </small>
+                    </div>
+                </div>
+
+                <!-- -end of col -->
+
+                <div class="col-sm-4 col-md-3 col-lg-2">
+                    <label> Fuel Type</label>
+                    <div class="form-group">
+                        <select class="form-control form-control-sm form-control-alternative" formControlName="FuelTypeId" [(ngModel)]="model.FuelTypeId" (change)="FuelTypeChange(model.FuelTypeId)">
+                    <option *ngFor="let item of FuelTypeList" [value]="item.ID">
+                                {{item.Name}}
+                            </option>
+                        </select>
+                         <small class="text-danger" *ngIf="Form1.controls.FuelTypeId.hasError('required') && submitted">
+                    This value is required.
+                </small>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-md-3 col-lg-2" *ngIf="IsShowRange">
+
+                            
+                    <label> Range Given(KM)</label>
+                    <div class="form-group">
+                <input type="text" id="" formControlName="RangeGiven" [(ngModel)]="model.RangeGiven" class="form-control form-control-sm form-control-alternative" placeholder="Range">
+                <small class="text-danger" *ngIf="Form1.controls.RangeGiven.hasError('required') && submitted">
+                    This value is required.
+                </small>
+                </div>
+                </div>
+                <!-- col  -->
+                
+                <!-- -end of col -->
+
+                <div class="col-sm-4 col-md-3 col-lg-2">
+
+                    <label> Tank Capacity</label>
+                    <div class="form-group">
+                <input type="text" id="" formControlName="TankCapacity" [(ngModel)]="model.TankCapacity" class="form-control form-control-sm form-control-alternative" placeholder="Tank Capacity">
+                <small class="text-danger" *ngIf="Form1.controls.TankCapacity.hasError('required') && submitted">
+                    This value is required.
+                </small>
+                    </div>
+                </div>
+
+                    <!-- -end of col -->
+
+                    <div class="col-sm-4 col-md-3 col-lg-2">
+                    
+                    <label> No Of Door</label>
+                    <div class="form-group">
+                <input type="text" id="" formControlName="NoOfDoor" [(ngModel)]="model.NoOfDoor" class="form-control form-control-sm form-control-alternative" placeholder="No Of Door">
+                <small class="text-danger" *ngIf="Form1.controls.NoOfDoor.hasError('required') && submitted">
+                    This value is required.
+                </small>
+                    </div>
+                 </div>
+
+                 
+                 <div class="col-sm-4 col-md-3 col-lg-2">
+                    <label> No Of Seat</label>
+                    <div class="form-group">
+                        <select class="form-control form-control-sm form-control-alternative" formControlName="NoOfSeatId" [(ngModel)]="model.NoOfSeatId">
+                         <option *ngFor="let item of SeatList" [value]="item.ID">
+                                {{item.Name}}
+                            </option>
+                        </select>
+                         <small class="text-danger" *ngIf="Form1.controls.NoOfSeatId.hasError('required') && submitted">
+                    This value is required.
+                </small>
+                    </div>
+
+                 </div>
+                 <div class="col-sm-4 col-md-3 col-lg-2">
+                    
+                    <label> Licence Type</label>
+                    <div class="form-group">
+                        <select class="form-control form-control-sm form-control-alternative" formControlName="LicenceType" [(ngModel)]="model.LicenceType">
+                         <option *ngFor="let item of LicenceTypeList" [value]="item.ID">
+                                {{item.Name}}
+                            </option>
+                        </select>
+                         <small class="text-danger" *ngIf="Form1.controls.LicenceType.hasError('required') && submitted">
+                    This value is required.
+                </small>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-4 col-md-3 col-lg-2" *ngIf="model.CarType=='V'">
+ 
+                    <label>Sequre Feet</label>
+                    <div class="form-group">
+                        <select class="form-control form-control-sm form-control-alternative" formControlName="SequreFeetId" [(ngModel)]="model.SequreFeetId">
+                         <option *ngFor="let item of SequreFeetList" [value]="item.ID">
+                                {{item.Name}}
+                            </option>
+                        </select>
+                         <small class="text-danger" *ngIf="Form1.controls.SequreFeetId.hasError('required') && submitted">
+                    This value is required.
+                </small>
+                    </div>
+                </div>
+
+                    <!-- -end of col -->
+
+
+                    <div class="col-sm-4 col-md-3 col-lg-2">
+
+                    <label> Drive Wheel Type</label>
+                    <div class="form-group">
+                        <select class="form-control form-control-sm form-control-alternative" formControlName="DriveWheelType" [(ngModel)]="model.DriveWheelType">
+                         <option *ngFor="let item of DriveWheelTypeList" [value]="item.ID">
+                                {{item.Name}}
+                            </option>
+                        </select>
+                         <small class="text-danger" *ngIf="Form1.controls.DriveWheelType.hasError('required') && submitted">
+                    This value is required.
+                </small>
+                    </div>
+                </div>
+                <!-- col  -->
+
+                
+
+
+
+                
+                <div class="col-sm-4 col-md-3 col-lg-2">
+
+                    <label> Load Capacity</label>
+                    <div class="form-group">
+                <input type="text" id="" formControlName="LoadCapacity" [(ngModel)]="model.LoadCapacity" class="form-control form-control-sm form-control-alternative" placeholder="Load Capacity">
+                <small class="text-danger" *ngIf="Form1.controls.LoadCapacity.hasError('required') && submitted">
+                    This value is required.
+                </small>
+                </div>
+                </div>
+               
+                <!-- col  -->
+
+                <div class="col-sm-4 col-md-3 col-lg-2">
+                        <label> Steering Type</label>
+                        <div class="form-group">
+                            <select class="form-control form-control-sm form-control-alternative" formControlName="SteeringTypeId" [(ngModel)]="model.SteeringTypeId">
+                                <option *ngFor="let item of SteeringTypeList" [value]="item.ID">
+                                    {{item.Name}}
+                                </option>
+                            </select>
+                            <small class="text-danger" *ngIf="Form1.controls.SteeringTypeId.hasError('required') && submitted">
+                        This value is required.
+                    </small>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-6 col-md-3 col-lg-4" *ngIf="model.CarType=='V'">
+                        <div class="row">
+                            <div class="col">
+
+                                <label> Length</label>
+                                <div class="form-group">
+                            <input type="text" id="" formControlName="Length" [(ngModel)]="model.Length" class="form-control form-control-sm form-control-alternative" placeholder="Enter Length">
+                            <small class="text-danger" *ngIf="Form1.controls.Length.hasError('required') && submitted">
+                                This value is required.
+                            </small>
+                            </div>
+                            </div>
+                            <div class="col">
+                                <label> Height</label>
+                                <div class="form-group">
+                            <input type="text" id="" formControlName="Height" [(ngModel)]="model.Height" class="form-control form-control-sm form-control-alternative" placeholder="Enter Height">
+                            <small class="text-danger" *ngIf="Form1.controls.Height.hasError('required') && submitted">
+                                This value is required.
+                            </small>
+                            </div>
+                            </div>
+                            <div class="col">
+                                <label> Width</label>
+                                <div class="form-group">
+                            <input type="text" id="" formControlName="Width" [(ngModel)]="model.Width" class="form-control form-control-sm form-control-alternative" placeholder="Enter Width">
+                            <small class="text-danger" *ngIf="Form1.controls.Width.hasError('required') && submitted">
+                                This value is required.
+                            </small>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                      <!-- col  -->
+
+                      <div class="col-sm-12">
+                        
+                        <label class="form-control-label pl-0" for="input-username"> Description</label>
+                            
+                        <div class="form-group">
+                            <textarea type="text" class="form-control m-input" placeholder="Description" formControlName="Description" [(ngModel)]="model.Description"></textarea>
+                            <small class="text-danger" *ngIf="Form1.controls.Description.hasError('required') && submitted">
+                                This value is required.
+                            </small>
+                        </div>
+                    </div>
+
+
+                      <!-- col  -->
+
+                      <div class="col-sm-12">
+                         
+                        <div class="col d-flex flex-wrap flex-checkbox smallbox p-0 VehiclePart">
+                            <div class="custom-control custom-checkbox mr-3" *ngFor="let c of VehiclePart_Request_dynamicArray;  let i = index">
+                                <input type="checkbox" class="custom-control-input" id="chck_{{i}}" (change)="checkValue(i,c.Id,c.IsChecked)" name="DropDownId" [ngModelOptions]="{standalone:true}" [(ngModel)]="c.IsChecked">
+                                <label class="custom-control-label" for="chck_{{i}}"> 
+                                    <i class="icon-car  icon-md"></i>
+                                    {{c.Name}}</label>
+                            </div>                           
+                        </div>
+                    </div>
+
+                <div class="col-sm-12 mt-3">
+                   
+                    <div class="img-box box-defaultset">
+                        <div class="d-flex flex-wrap ">
+                            <div class="upload-area">
+                                <div class="col-sm-12" *ngIf="model.Image!=''">
+                                    <img [src]="AttachImage" style="width: 80px;height: 80px;border-radius: 50%;display: table;" />
+                                </div>
+                                <!-- <input type="file" multiple (change)="onFilesSelected($event)"> -->
+        
+                                <File-Component class="UploadActnWrap" [(ngModel)]="model.Attachment" (ClearModel)="ClearImageUrl()" (FileNameEvent)="getImageUrlName($event)" (IsNewFileEvents1)="IsNewImageEvent($event)" [ImageWithAddress]="true" [ngModelOptions]="{standalone:true}"></File-Component>
+                              
+                            </div>
+                            <div class="img-block" *ngFor="let m of ImageList ;  let i = index">
+                                <label  class="remove" (click)="RemoveImage(i)"><i class="icon icon-cross text-danger"></i></label>
+                                <img style="width: 80px;height: 80px;border-radius: 5px;display: table;" src="{{m}}">
+                                
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer fixed">
+                <button type="button" class="btn btn-red btnDel pull-left" *ngIf="IsEdit" (click)="Delete()">Delete</button>
+                <button type="button" class="btn btn-light" routerLink="/home/Vehicle">Cancel</button>
+                <button type="submit" class="btn btn-danger" *ngIf="!IsEdit">Save</button>
+                <button type="submit" class="btn btn-danger" *ngIf="IsEdit">Update</button>
+            </div>
+        </form>
+
+      </div>
+
+    </div>
+</div>
+
+<!-- Make model -->
+<ng-template #MakeModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" *ngIf="IsEdit==false">Add Make</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="Form2" novalidate (ngSubmit)="MakeSaveOrUpdate(Form2.valid)">
+        <div class="modal-body bg-secondary">
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <div class="row form-group">
+                        <div class="col-4 text-right">
+                            <label class="form-control-label mt-2" for="input-username">Name </label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" id="" formControlName="Name" [(ngModel)]="Makemodel.Name" class="form-control form-control-sm form-control-alternative" placeholder="Name">
+                            <small class="text-danger" *ngIf="Form2.controls.Name.hasError('required') && submitted">
+                                This value is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+            <button type="submit" class="btn btn-danger" *ngIf="!IsEdit">Save</button>
+        </div>
+    </form>
+</ng-template>
+<!-- Vehicle Modal -->
+<ng-template #VehicleModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" *ngIf="IsEdit==false">Add Model</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="Form3" novalidate (ngSubmit)="VehicleModelSaveOrUpdate(Form3.valid)">
+        <div class="modal-body bg-secondary">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row form-group">
+                        <div class="col-4 text-right">
+                            <label class="form-control-label mt-2" for="input-username">Select Make </label>
+                        </div>
+                        <div class="col-8">
+                            <select class="form-control form-control-sm form-control-alternative" formControlName="MakeId" [(ngModel)]="vehicletable.MakeId">
+                                <option *ngFor="let item of MakeList" [value]="item.ID">
+                                    {{item.Name}}
+                                </option>
+                            </select>
+                            <small class="text-danger" *ngIf="Form3.controls.MakeId.hasError('required') && submitted">
+                                This value is required.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-4 text-right">
+                            <label class="form-control-label mt-2" for="input-username">Model </label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" id="" formControlName="Name" [(ngModel)]="vehicletable.Name" class="form-control form-control-sm form-control-alternative" placeholder="Model Name">
+                            <small class="text-danger" *ngIf="Form3.controls.Name.hasError('required') && submitted">
+                                This value is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+            <button type="submit" class="btn btn-danger" *ngIf="!IsEdit">Save</button>
+        </div>
+    </form>
+</ng-template>
+
+
