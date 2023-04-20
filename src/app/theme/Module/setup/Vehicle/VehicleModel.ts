@@ -23,6 +23,8 @@
          Length:number;
          Height:number;
          Width:number;
+         Image:string;
+         Attachment:string;
       VehicleImage: Array<VehicleImage> = [];
       VehiclePartRequest: Array<VehiclePartRequest> = [];
 }
