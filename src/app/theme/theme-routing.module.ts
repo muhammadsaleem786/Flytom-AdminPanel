@@ -40,6 +40,9 @@ import { CategoryComponentList } from '../theme/Module/setup/Category/CategoryCo
 import { VehicleComponentList } from '../theme/Module/setup/Vehicle/VehicleComponentList';
 import { VehicleComponentForm } from '../theme/Module/setup/Vehicle/VehicleComponentForm';
 
+import { ContentComponentList } from '../theme/Module/setup/ContentManagment/ContentComponentList';
+import { ContectComponentForm } from '../theme/Module/setup/ContentManagment/ContentComponentForm';
+
 import { VehicleModelComponentList } from '../theme/Module/setup/VehicleModel/VehicleModelComponentList';
 
 
@@ -60,6 +63,9 @@ const SecureRoutes: Routes = [
             { path: 'Vehicle', component: VehicleComponentList, canActivate: [AuthGuard] },
             { path: 'Vehicle/addVehicle:id', component: VehicleComponentForm, canActivate: [AuthGuard]},
             { path: 'Vehicle/addVehicle', component: VehicleComponentForm, canActivate: [AuthGuard] },   
+            { path: 'Content', component: ContentComponentList, canActivate: [AuthGuard] },
+            { path: 'Content/addContent:id', component: ContectComponentForm, canActivate: [AuthGuard]},
+            { path: 'Content/addContent', component: ContectComponentForm, canActivate: [AuthGuard] },   
             { path: 'VehicleModel', component: VehicleModelComponentList, canActivate: [AuthGuard] },
             { path: 'dashboard', component: DashboardForm, canActivate: [AuthGuard] },  
             { path: 'report', component: ReportComponentForm, canActivate: [AuthGuard] },                   
@@ -75,6 +81,8 @@ export const SecureComponent: any[] = [
     PasswordchangedComponent,
     CompanyComponent,  
     ChangepasswordComponent, 
+    ContentComponentList,
+    ContectComponentForm,
     CreatepasswordComponent,
     SetupDashboardComponent,
     ReportComponentForm,

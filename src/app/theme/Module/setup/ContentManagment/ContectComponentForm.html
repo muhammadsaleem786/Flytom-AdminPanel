@@ -1,0 +1,195 @@
+﻿<div class="col-sm-12 AddRoleWraper">
+    <div class="row headSection paginationHead">
+        <div class="col-sm-8 no-padding">
+            <h3 class="page-heading mt-d-inline-block"*ngIf="IsEdit">
+               Update Content
+            </h3>
+            <h3 class="page-heading mt-d-inline-block" *ngIf="IsEdit==false">
+                Add New Content
+            </h3>
+        </div>
+        <div class="col-sm-4 text-right flex-row flex-end">
+            <span class="closeICon" routerLink="/home/Vehicle/">
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 512 512" xml:space="preserve" class="icon icon-sm"><path d="M455.2 9.2L256 208.4 56.8 9.2C44.5-3.1 24.6-3.1 12.2 9.2l-2.9 2.9C-3 24.4-3 44.4 9.3 56.7L208.4 256 9.2 455.2c-12.3 12.3-12.3 32.3 0 44.6l2.9 2.9c12.3 12.3 32.3 12.3 44.6 0L256 303.6l199.2 199.2c12.3 12.3 32.3 12.3 44.6 0l2.9-2.9c12.3-12.3 12.3-32.3 0-44.6L303.6 256 502.8 56.8c12.3-12.3 12.3-32.3 0-44.6l-2.9-2.9c-12.5-12.4-32.4-12.4-44.7-.1z"></path></svg>
+            </span>
+        </div>
+    </div>
+    <div class="row Cardview padding-20 m-0">
+       
+
+      <div class="col-sm-12">
+        <form [formGroup]="Form1" novalidate (ngSubmit)="SaveOrUpdate(Form1.valid)">
+            <div class="row">
+               
+
+                <div class="col-sm-4 col-md-3">
+
+                    <label>
+                        Content Type
+                    </label>
+                    <div class="input-group mb-3">
+                        <select class="form-control form-control-sm form-control-alternative" formControlName="ContentTypeId" [(ngModel)]="model.ContentTypeId">
+                            <option *ngFor="let item of ContentList" [value]="item.ID">
+                                {{item.Name}}
+                            </option>
+                        </select>
+                        <small class="text-danger" *ngIf="Form1.controls.ContentTypeId.hasError('required') && submitted">
+                            This value is required.
+                        </small>
+                    </div>
+                </div>
+
+
+                      <!-- col  -->
+
+                      <div class="col-sm-12">
+                        
+                        <label class="form-control-label pl-0" for="input-username"> Description</label>
+                            
+                        <div class="form-group">
+                            <textarea type="text" class="form-control m-input" placeholder="Content Description" formControlName="ContentDescription" [(ngModel)]="model.ContentDescription"></textarea>
+                            <small class="text-danger" *ngIf="Form1.controls.ContentDescription.hasError('required') && submitted">
+                                This value is required.
+                            </small>
+                        </div>
+                    </div>
+                <div class="col-sm-12 mt-3">
+                    <div class="table-">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tittle</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Image</th>
+                                    <th>-</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let dynamic of Bannar_dynamicArray; let i = index;">
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" id="txtBannerTitle_{{i}}" name="BannerTitle" [ngModelOptions]="{standalone:true}" [(ngModel)]="dynamic.BannerTitle" autocomplete="off">
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control form-control-sm" rows="1" id="txtBannerDescription_{{i}}" name="BannerDescription" [ngModelOptions]="{standalone:true}" [(ngModel)]="dynamic.BannerDescription" autocomplete="off"></textarea>
+                                    </td>
+                                    <td>                                        
+                                        <div class="upload-area">
+                                            <div class="col-sm-12" *ngIf="dynamic.BannerImageUrl!=''">
+                                                <img [src]="dynamic.BannerImageUrl" style="width: 80px;height: 80px;border-radius: 50%;display: table;" />
+                                            </div>
+                                          
+                                            <input type="file" id="myFile" (change)="fileChangeEvent($event,i)" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <i class="icon icon-cross" (click)="RemoveRow(i)"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span class="btn btn-light btn-sm text-primary" style="height: 28px;" (click)="AddBannar()">
+                                    <i class="icon icon-plus-circle"></i> Add Row
+                                </span>
+                            </div>                            
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="modal-footer fixed">
+                <button type="button" class="btn btn-red btnDel pull-left" *ngIf="IsEdit" (click)="Delete()">Delete</button>
+                <button type="button" class="btn btn-light" routerLink="/home/Content">Cancel</button>
+                <button type="submit" class="btn btn-danger" *ngIf="!IsEdit">Save</button>
+                <button type="submit" class="btn btn-danger" *ngIf="IsEdit">Update</button>
+            </div>
+        </form>
+
+      </div>
+
+    </div>
+</div>
+
+<!-- Make model -->
+<ng-template #MakeModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" *ngIf="IsEdit==false">Add Make</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="Form2" novalidate (ngSubmit)="MakeSaveOrUpdate(Form2.valid)">
+        <div class="modal-body bg-secondary">
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <div class="row form-group">
+                        <div class="col-4 text-right">
+                            <label class="form-control-label mt-2" for="input-username">Name </label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" id="" formControlName="Name" [(ngModel)]="Makemodel.Name" class="form-control form-control-sm form-control-alternative" placeholder="Name">
+                            <small class="text-danger" *ngIf="Form2.controls.Name.hasError('required') && submitted">
+                                This value is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+            <button type="submit" class="btn btn-danger" *ngIf="!IsEdit">Save</button>
+        </div>
+    </form>
+</ng-template>
+<!-- Vehicle Modal -->
+<ng-template #VehicleModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" *ngIf="IsEdit==false">Add Model</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="Form3" novalidate (ngSubmit)="VehicleModelSaveOrUpdate(Form3.valid)">
+        <div class="modal-body bg-secondary">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row form-group">
+                        <div class="col-4 text-right">
+                            <label class="form-control-label mt-2" for="input-username">Select Make </label>
+                        </div>
+                        <div class="col-8">
+                            <select class="form-control form-control-sm form-control-alternative" formControlName="MakeId" [(ngModel)]="vehicletable.MakeId">
+                                <option *ngFor="let item of MakeList" [value]="item.ID">
+                                    {{item.Name}}
+                                </option>
+                            </select>
+                            <small class="text-danger" *ngIf="Form3.controls.MakeId.hasError('required') && submitted">
+                                This value is required.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-4 text-right">
+                            <label class="form-control-label mt-2" for="input-username">Model </label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" id="" formControlName="Name" [(ngModel)]="vehicletable.Name" class="form-control form-control-sm form-control-alternative" placeholder="Model Name">
+                            <small class="text-danger" *ngIf="Form3.controls.Name.hasError('required') && submitted">
+                                This value is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+            <button type="submit" class="btn btn-danger" *ngIf="!IsEdit">Save</button>
+        </div>
+    </form>
+</ng-template>
+
+
