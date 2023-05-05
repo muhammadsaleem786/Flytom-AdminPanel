@@ -93,7 +93,7 @@ export class ContentComponentList {
         var result = confirm("Are you sure you want to delete selected record.");
         if (result) {
             this.loader.ShowLoader();
-            this._ContentService.Delete(this.model.Id.toString()).then(m => {
+            this._ContentService.Delete(this.model.ID.toString()).then(m => {
                 if (m.IsSuccess){
                     this.toastr.Success('Success', m.Message);
                     this.GetList();

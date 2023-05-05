@@ -149,19 +149,44 @@ public LicenceTypeList:any[]=[];
         this.VehiclePart_Request_dynamicArray=[];
         this.loader.ShowLoader();
         this._VehicleService.FormLoad().then(m => {
+            debugger
             if (m.IsSuccess) {                
                 this.MakeList = m.ResultSet.makeList;
-                if(this.IsEdit)
-                this.ModelList = m.ResultSet.ModelList;
+                if(this.MakeList.length>0)
+                this.model.MakesId=this.MakeList[0].ID;
+                if(this.MakeList.length==1){
+                    this.ModelList = m.ResultSet.ModelList.filter(a=>a.MakeId==this.MakeList[0].ID);
+                    if(this.ModelList.length>0)
+                    this.model.VehicleModelsId=this.ModelList[0].ID;
+                    }else{
+                        this.ModelList = m.ResultSet.ModelList;
+                        // if(this.ModelList.length>0)
+                        // this.model.VehicleModelsId=this.ModelList[0].ID;
+                        }
                 this.FuelTypeList = m.ResultSet.FuelTypeList;
+                if(this.FuelTypeList.length>0)
+                this.model.FuelTypeId=this.FuelTypeList[0].ID;
                 this.SteeringTypeList = m.ResultSet.SteeringTypeList;
+                if(this.SteeringTypeList.length>0)
+                this.model.SteeringTypeId=this.SteeringTypeList[0].ID;
                 this.PCategoryList=m.ResultSet.PCategoryList;
+                if(this.PCategoryList.length>0)
+                this.model.CategoryId=this.PCategoryList[0].ID;
                 this.VCategoryList=m.ResultSet.VCategoryList;
+                if(this.VCategoryList.length>0)
+                this.model.CategoryId=this.VCategoryList[0].ID;
 this.DriveWheelTypeList=m.ResultSet.DriveWheelTypeList;
+if(this.DriveWheelTypeList.length>0)
+this.model.DriveWheelType=this.DriveWheelTypeList[0].ID;
 this.SeatList=m.ResultSet.SeatList;
+if(this.SeatList.length>0)
+this.model.NoOfSeatId=this.SeatList[0].ID;
 this.LicenceTypeList=m.ResultSet.LicenceTypeList;
+if(this.LicenceTypeList.length>0)
+this.model.LicenceType=this.LicenceTypeList[0].ID;
 this.SequreFeetList=m.ResultSet.SequreFeetList;
-
+if(this.SequreFeetList.length>0)
+this.model.SequreFeetId=this.SequreFeetList[0].ID;
 m.ResultSet.PartList.forEach((item, index) => {
     item.DropDownId=item.ID;
             item.Name = item.Name;
@@ -192,7 +217,8 @@ m.ResultSet.PartList.forEach((item, index) => {
         this._VehicleService.LoadModelByMakeId(Id).then(m => {
             if (m.IsSuccess) {     
                 this.ModelList = m.Data;
-                //this.model.VehicleModelsId=this.ModelList;
+                if(this.ModelList.length>0)
+                this.model.VehicleModelsId=this.ModelList[0].ID;
                 this.loader.HideLoader();
             } else
                 this.loader.HideLoader();
@@ -350,7 +376,7 @@ VehicleModelSaveOrUpdate(isValid: boolean): void {
                 if (m.ErrorMessage != null)
                     this.toastr.Error('Error', m.ErrorMessage);
                 else
-                    this._router.navigate(['/home/Expense']);
+                    this._router.navigate(['/home/Vehicle']);
                 this.loader.HideLoader();
             });
         }

@@ -35,7 +35,9 @@ import { CommonToastrService } from './CommonService/CommonToastrService';
 import { ToastrModule } from 'ngx-toastr';
 import { accpasswordchangeComponent } from './Module/account/accpasswordchange/accpasswordchange.component';
 import { CommonUtilsModule } from './common/common-utils.module';
-//import { RecaptchaModule, RecaptchaComponent } from 'ng-recaptcha';
+
+// import { TranslateModule } from '@ngx-translate/core';
+
 @NgModule({
     declarations: [
         AppComponent,

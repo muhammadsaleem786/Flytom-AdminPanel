@@ -126,12 +126,12 @@ export class FileUploadComponent implements ControlValueAccessor {
         self.size = self.size / 1024;
         self.size = self.size / 1024;
         self.size = Math.round(self.size * 100) / 100
-        if (self.size > 2) {
-            self.imagedata = 'File size is greater than 2 MB. File size is ' + self.size + ' MB';
-            self.value = '';
-            return;
-        }
-        else {
+        // if (self.size > 2) {
+        //     self.imagedata = 'File size is greater than 2 MB. File size is ' + self.size + ' MB';
+        //     self.value = '';
+        //     return;
+        // /}
+        //else {
             self.showbar = true;
             self.imagedata = 'File size is ' + self.size + ' MB';
             self.selectedFiles = data.target.files;
@@ -160,7 +160,7 @@ export class FileUploadComponent implements ControlValueAccessor {
                 },
                 error => error
             );
-        }
+        //}
 
         self.value = '';
         self.innerValue = '';
