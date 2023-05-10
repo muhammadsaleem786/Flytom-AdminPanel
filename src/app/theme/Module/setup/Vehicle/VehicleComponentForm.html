@@ -55,7 +55,23 @@
                     </small> 
                 </div>
 
-                
+                <!-- -end of col -->
+
+                <div class="col-sm-4 col-md-3">
+
+                    <label>
+                        Vehicle Name
+                    </label>
+                    <div class="input-group mb-3">
+                        <input type="text" id="" formControlName="Name" [(ngModel)]="model.Name" class="form-control form-control-sm form-control-alternative" placeholder="Enter Vehicle Name">
+                                      <small class="text-danger" *ngIf="Form1.controls.Name.hasError('required') && submitted">
+                            This value is required.
+                        </small>
+                    </div>
+                </div>
+
+
+                <!-- -end of col -->
                 <!-- -end of col -->
 
                 <div class="col-sm-4 col-md-3">

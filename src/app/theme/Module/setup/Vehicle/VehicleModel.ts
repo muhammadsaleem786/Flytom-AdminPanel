@@ -4,6 +4,7 @@
     this.VehiclePartRequest.push(objVehiclePart_Request);
 }
     Id: number;
+    Name:string;
     MakesId: string;
     VehicleModelsId : string;
        FuelTypeId: string;

@@ -74,6 +74,7 @@ public LicenceTypeList:any[]=[];
     ngOnInit() {
         this.loadDropdown();
         this.Form1 = this._fb.group({
+            Name:['', [Validators.required]],
             MakesId: ['', [Validators.required]],
             VehicleModelsId: ['', [Validators.required]],
             CarType: ['', [Validators.required]],
