@@ -125,10 +125,12 @@ export class AccountService {
            
             var result = JSON.parse(m._body);
             if (result.IsSuccess) {
+                    localStorage.removeItem('Email');
                     localStorage.removeItem('Token');     
                     localStorage.removeItem('ValidTo');      
                     localStorage.setItem('Token', this.encrypt.encryptionAES(result.Data.Token));                   
                     localStorage.setItem('ValidTo', result.Data.ValidTo);
+                    localStorage.setItem('Email', result.Data.Email);
             }
             else {
                

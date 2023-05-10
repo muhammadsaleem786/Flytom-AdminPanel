@@ -44,12 +44,12 @@
         </a>
     </li>
 
-    <!-- <li routerLinkActive="active" [hidden]="!DashboardMenu.IsShowMenus()" class="skyblueActive">
+    <li *ngIf="email=='saleem@gmail.com'" routerLinkActive="active" [hidden]="!DashboardMenu.IsShowMenus()" class="skyblueActive">
         <a routerLink="Content">
-            <span><i class="icon-car iconImage"></i></span>
+            <span><i class="fas fa-tasks iconImage"></i></span>
             <span class="title">Content</span>
         </a>
-    </li> -->
+    </li> 
 
     <li routerLinkActive="active" [hidden]="!DashboardMenu.IsShowMenus()" class="skyblueActive">
         <a (click)="Logout()" id="LogOut" style="color: #fff;">

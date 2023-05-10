@@ -36,7 +36,7 @@ export class ContectComponentForm implements OnInit {
     public IsUpdateText: boolean = false;
     public model = new ContentModel();
     public PayrollRegion: string;
-    public BannerListModel=new BannerList();
+   // public BannerListModel=new BannerList();
     public ImageList:any[]=[];
     public ContentList:any[]=[];
     public Keywords: any[] = [];
@@ -77,11 +77,19 @@ export class ContectComponentForm implements OnInit {
                     this.loader.ShowLoader();
                     this.IsEdit = true;
                     this._ContentService.GetById(this.id).then(m => {
+                        debugger
+                        var typeid=m.Data.ContentTypeId.toString();
                         this.model = m.Data;  
+                        this.model.ContentTypeId=typeid;
                         this.Bannar_dynamicArray=[];
                        if (this.model.BannerList != null || this.model.BannerList != undefined) {
                        this.model.BannerList.forEach((item, index) => {
-                             this.Bannar_dynamicArray.push(item); 
+                        let obj=new BannerList();
+                        obj.Id=item.Id;
+                        obj.BannerTitle=item.BannerTitle;
+                        obj.BannerDescription=item.BannerDescription;
+                        obj.BannerImageUrl=item.BannerImageUrl;
+                             this.Bannar_dynamicArray.push(obj); 
                          });  
                         }          
                         this.loader.HideLoader();
@@ -115,8 +123,9 @@ export class ContectComponentForm implements OnInit {
             this.Bannar_dynamicArray.splice(rowno, 1);
         }
     }
-    AddBannar() {
+    AddBannar() {debugger
         var obj = new BannerList();
+        obj.Id=0;
         this.Bannar_dynamicArray.push(obj);
         this.loader.HideLoader();
     }
@@ -125,7 +134,8 @@ export class ContectComponentForm implements OnInit {
         if (isValid) {
             this.submitted = false;
             this.loader.ShowLoader();
-            this.model.BannerList=this.Bannar_dynamicArray;
+         
+            this.model.BannerList=this.Bannar_dynamicArray.filter(a => a.BannerTitle != null);
             this.model.IsActive=true;
             this._ContentService.SaveOrUpdate(this.model).then(m => {
                 var result = JSON.parse(m._body);
@@ -209,7 +219,7 @@ export class ContectComponentForm implements OnInit {
         var result = confirm("Are you sure you want to delete selected record.");
         if (result) {
             this.loader.ShowLoader();
-            this._ContentService.Delete(this.model.ID.toString()).then(m => {
+            this._ContentService.Delete(this.model.Id.toString()).then(m => {
                 if (m.ErrorMessage != null)
                     this.toastr.Error('Error', m.ErrorMessage);
                 else

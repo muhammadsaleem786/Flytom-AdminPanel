@@ -40,6 +40,7 @@ export class ContentComponentList {
         this.PConfig.Fields = [
             { Name: "ID", Title: "Id", OrderNo: 1, SortingAllow: true, Visible: true, isDate: false, DateFormat: "" },
             { Name: "Name", Title: "Name", OrderNo: 2, SortingAllow: true, Visible: true, isDate: false, DateFormat: "" },
+            { Name: "ContentDescription", Title: "Description", OrderNo: 2, SortingAllow: true, Visible: true, isDate: false, DateFormat: "" },
             { Name: "IsActive", Title: "Status", OrderNo: 3, SortingAllow: true, Visible: true, isDate: false, DateFormat: "" },
             ];
     }
@@ -93,7 +94,7 @@ export class ContentComponentList {
         var result = confirm("Are you sure you want to delete selected record.");
         if (result) {
             this.loader.ShowLoader();
-            this._ContentService.Delete(this.model.ID.toString()).then(m => {
+            this._ContentService.Delete(this.model.Id.toString()).then(m => {
                 if (m.IsSuccess){
                     this.toastr.Success('Success', m.Message);
                     this.GetList();

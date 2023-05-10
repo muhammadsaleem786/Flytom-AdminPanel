@@ -1,13 +1,16 @@
 ﻿export class ContentModel {
-
-    ID: number;
-    ContentTypeId: number;
+  constructor() {
+    let objVehiclePart_Request = new BannerList();
+    this.BannerList.push(objVehiclePart_Request);
+}
+  Id: number;
+    ContentTypeId: string;
     ContentDescription : string;
     IsActive: boolean;       
     BannerList: Array<BannerList> = [];
 }
 export class BannerList {
-  ID: number;
+  Id: number;
   BannerImageUrl :string;
   BannerTitle :string;
   BannerDescription :string;

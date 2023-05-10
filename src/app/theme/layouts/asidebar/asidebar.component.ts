@@ -50,11 +50,12 @@ export class AsidebarComponent implements OnInit {
     public PackgeList: any[] = [];
     public UsersObj: any;
     public admCompany = new Company();
+    public email:any;
     constructor(public _fb: FormBuilder, public _router: Router, public companyService: CompanyService
         , public commonservice: CommonService, public _authenticationService: AuthenticationService,
         public _AsidebarService: AsidebarService, public loader: LoaderService, public DashboardMenu: DashboardMenuService, public toastr: CommonToastrService, private encrypt: EncryptionService) {
             this.DashboardMenu.ShowMenues();
-      
+            this.email = localStorage.getItem('Email');
     }
 
     Logout(): void {

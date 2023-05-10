@@ -28,7 +28,7 @@ export class ContentService {
 
     SaveOrUpdate(entity: ContentModel): Promise<any> {
     
-        return this.http.Put(this.urlToApi + '/AddUpdate', entity).then(e => e);
+        return this.http.Post(this.urlToApi + '/AddUpdate', entity).then(e => e);
 
     
     }
